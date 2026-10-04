@@ -1,0 +1,49 @@
+---
+import Base from './Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { SITE } from '../config';
+import { getTool } from '../data/tools';
+import { getCollection } from 'astro:content';
+
+interface Props { slug: string; data: { title: string; description: string; primaryPhrase: string; tool: string; published: Date; updated: Date } }
+const { slug, data } = Astro.props;
+const tool = getTool(data.tool);
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+const fmt = (d: Date) => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const url = new URL(`/guides/${slug}/`, SITE.url).href;
+const others = (await getCollection('guides')).filter((g) => g.id !== slug).slice(0, 3);
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: data.description,
+  mainEntityOfPage: url,
+  image: new URL(SITE.ogImage, SITE.url).href,
+  datePublished: iso(data.published),
+  dateModified: iso(data.updated),
+  inLanguage: SITE.language,
+  author: { '@type': 'Person', name: SITE.author.name, url: new URL(SITE.author.url, SITE.url).href },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+};
+---
+<Base title={data.title} description={data.description} path={`/guides/${slug}/`} ogType="article" jsonLd={[ld]} published={iso(data.published)} modified={iso(data.updated)}>
+  <Breadcrumb slot="breadcrumb" items={[{ name: 'Guides', href: '/guides/' }, { name: data.title }]} />
+  <article class="guide">
+    <h1>{data.title}</h1>
+    <p class="byline">
+      By <a href="/about/">{SITE.author.name}</a>, {SITE.author.role} &middot; Last updated <time datetime={iso(data.updated)}>{fmt(data.updated)}</time>
+    </p>
+    <div class="prose"><slot /></div>
+    <aside class="cta" aria-labelledby="cta-h">
+      <h2 id="cta-h">Try it yourself</h2>
+      <p>Use the free <a href={`/${tool.slug}/`}>{tool.name.toLowerCase()}</a>. It runs in your browser and your files stay on your device.</p>
+    </aside>
+    <section class="related" aria-labelledby="more-h">
+      <h2 id="more-h">More guides</h2>
+      <ul>
+        {others.map((g) => <li><a href={`/guides/${g.id}/`}>{g.data.title}</a></li>)}
+        <li><a href="/guides/">All guides</a></li>
+      </ul>
+    </section>
+  </article>
+</Base>

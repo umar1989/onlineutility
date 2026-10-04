@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import ToolCard from '../components/ToolCard.astro';
+import { TOOLS } from '../data/tools';
+---
+<Base title="Page Not Found" description="The page you were looking for could not be found. Browse our free tools and guides instead." noindex ads={false}>
+  <h1>Page not found</h1>
+  <p>The page you asked for does not exist or has moved. Try one of the tools below, or go back to the <a href="/">home page</a> or the <a href="/guides/">guides</a>.</p>
+  <ul class="cards">{TOOLS.map((t) => <ToolCard tool={t} />)}</ul>
+</Base>

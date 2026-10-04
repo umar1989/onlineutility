@@ -1,0 +1,10 @@
+---
+import type { Tool } from '../data/tools';
+interface Props { tool: Tool; headingLevel?: 'h3' | 'h2' }
+const { tool, headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+---
+<li class="card">
+  <H class="card-title"><a href={`/${tool.slug}/`}>{tool.name}</a></H>
+  <p>{tool.blurb}</p>
+</li>

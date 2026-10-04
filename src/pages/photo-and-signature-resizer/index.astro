@@ -1,0 +1,93 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+const faqs = [
+  { q: 'How do I reduce a photo to 20 KB?', a: 'Choose the photo, tap the 20 KB button and keep your width and height. The tool lowers the JPEG quality step by step and stops at the highest quality that still fits under 20 KB.' },
+  { q: 'Is my photo uploaded anywhere?', a: 'No. The resizing happens inside your browser on your own device. The photo is never sent to a server, so it is safe to use for ID-style pictures.' },
+  { q: 'Why does the tool say the target was not reached?', a: 'A very large pixel size cannot always be squeezed under a very small KB limit. Lower the width and height, or raise the KB target, and try again.' },
+  { q: 'Which file format do I get?', a: 'A JPEG file, which is the format most application forms accept. Transparent areas in a PNG become white.' },
+  { q: 'Can I use it for a signature scan?', a: 'Yes. Photograph your signature on plain white paper in good light, upload it here and enter the signature width, height and size from your form.' },
+];
+---
+<ToolLayout slug="photo-and-signature-resizer" faqs={faqs}>
+  {/* AUTHOR REVIEW: lead paragraph, drafted by AI. Edit freely. */}
+  <p slot="lead">
+    Use this photo and signature resizer to set the exact width, height and file size your application form asks for.
+    Choose your picture, enter the numbers from the notification, and download a JPEG that fits.
+  </p>
+
+  <div slot="tool" id="pr-tool">
+    <div class="field">
+      <label for="pr-file">Choose a photo or signature image</label>
+      <input id="pr-file" type="file" accept="image/*" />
+    </div>
+    <div class="row two">
+      <div class="field">
+        <label for="pr-w">Width (pixels)</label>
+        <input id="pr-w" type="number" min="10" max="6000" inputmode="numeric" placeholder="e.g. 200" />
+      </div>
+      <div class="field">
+        <label for="pr-h">Height (pixels)</label>
+        <input id="pr-h" type="number" min="10" max="6000" inputmode="numeric" placeholder="e.g. 230" />
+      </div>
+    </div>
+    <div class="field">
+      <span class="label">Quick pixel sizes (generic examples, not exam rules)</span>
+      <div class="chips">
+        <button type="button" class="chip" data-size="200x230">Photo 200 × 230</button>
+        <button type="button" class="chip" data-size="140x60">Signature 140 × 60</button>
+      </div>
+    </div>
+    <div class="field">
+      <label for="pr-kb">Maximum file size (KB)</label>
+      <input id="pr-kb" type="number" min="1" max="5000" inputmode="numeric" value="50" />
+      <div class="chips">
+        <button type="button" class="chip" data-kb="20" aria-pressed="false">20 KB</button>
+        <button type="button" class="chip" data-kb="50" aria-pressed="true">50 KB</button>
+        <button type="button" class="chip" data-kb="100" aria-pressed="false">100 KB</button>
+      </div>
+    </div>
+    <div class="field">
+      <label for="pr-fit">How should the picture fit?</label>
+      <select id="pr-fit">
+        <option value="crop">Crop to fill (keeps proportions)</option>
+        <option value="stretch">Stretch to exact size</option>
+        <option value="fit">Fit inside, add white margins</option>
+      </select>
+    </div>
+    <p id="pr-status" class="status" role="status" aria-live="polite">Choose an image to begin.</p>
+    <div id="pr-result" class="result" hidden>
+      <div id="pr-out" aria-live="polite"></div>
+      <div class="btn-row"><button type="button" id="pr-dl" class="btn" disabled>Download JPEG</button></div>
+    </div>
+    <div id="pr-preview" class="preview" hidden>
+      <canvas id="pr-canvas" width="10" height="10" aria-label="Preview of the resized image"></canvas>
+    </div>
+  </div>
+
+  {/* AUTHOR REVIEW: how-to, worked example and tips drafted by AI. Add your own example and wording. */}
+  <h2>How to use the photo and signature resizer</h2>
+  <ol>
+    <li>Choose a photo or a signature scan from your phone or computer.</li>
+    <li>Type the width and height in pixels given in your form instructions.</li>
+    <li>Enter the maximum size in KB, or tap the 20, 50 or 100 KB button.</li>
+    <li>Pick how the picture should fit: crop to fill, stretch, or add white margins.</li>
+    <li>Look at the preview and the final size shown under it, then download the JPEG.</li>
+  </ol>
+  <h2>Worked example</h2>
+  <p class="worked">
+    Your form wants a signature of 140 × 60 pixels and no more than 20 KB. You have a 3 MB phone picture of your
+    signature on white paper. Choose the file, type 140 and 60, tap 20 KB and leave "Crop to fill" selected. The tool
+    tries many JPEG qualities and keeps the best one that fits, then reports something like "11.8 KB, 140 × 60 pixels,
+    quality about 82%". That file is ready to upload.
+  </p>
+  <h2>Tips for a clean result</h2>
+  <p>
+    Take signature photos in daylight on plain white paper and keep the pen strokes dark. For passport-style photos,
+    keep the face in the middle with a little space around the head, because "Crop to fill" trims the edges.
+  </p>
+  <p>
+    The size presets here are generic examples. Every exam sets its own limits, so copy the numbers from your official
+    notification and always check the final file before you submit.
+  </p>
+  <script>import '../../scripts/photo-resizer.js';</script>
+</ToolLayout>

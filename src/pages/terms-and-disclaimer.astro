@@ -1,0 +1,39 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config';
+---
+<PageLayout title="Terms of Use and Disclaimer" description={`Terms of use and disclaimer for ${SITE.name}: the tools are provided as they are, and users must check official notifications for exam rules.`} h1="Terms of use and disclaimer" crumb="Terms and disclaimer" updated="2026-10-04">
+  {/* AUTHOR REVIEW: read these terms and adjust anything that does not match how you want to run the site. This is general information, not legal advice. */}
+  <h2>Use of the site</h2>
+  <p>
+    {SITE.name} offers free tools and guides for general information and convenience. You may use them for personal,
+    educational and professional purposes. Please do not misuse the site or try to disrupt it.
+  </p>
+  <h2>No official or legal advice</h2>
+  <p>
+    We are not connected with any examination body, university, board or government department. The tools and guides do
+    not state the official photo, signature or document requirements of any exam. Always read the official notification
+    for your exam and follow it. Presets in the tools are generic examples only.
+  </p>
+  <h2>Accuracy of results</h2>
+  <p>
+    We work hard to make the calculators and converters correct, but we cannot guarantee that every result is free from
+    error or suits your purpose. Grade scales, CGPA conversion rules and age limits vary between institutions. Check
+    important results against the rules of the organisation that will use them. You are responsible for checking a file
+    before you submit it.
+  </p>
+  <h2>No warranty and limit of liability</h2>
+  <p>
+    The site and its tools are provided "as is" without warranties of any kind. To the fullest extent permitted by law,
+    we are not liable for any loss, including a rejected application, arising from the use of the site.
+  </p>
+  <h2>Your content</h2>
+  <p>
+    You keep all rights to the files you process. They are handled only in your browser and are not sent to us. See the
+    <a href="/privacy-policy/">privacy policy</a>.
+  </p>
+  <h2>Advertising and external links</h2>
+  <p>The site may display third-party advertising and link to other sites. We do not control or endorse them.</p>
+  <h2>Changes</h2>
+  <p>We may change these terms. Continued use of the site after a change means you accept the new terms.</p>
+</PageLayout>

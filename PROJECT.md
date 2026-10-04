@@ -1,0 +1,82 @@
+# PROJECT.md
+
+Static utility-tools site for Indian exam applicants, students and teachers. Astro (static output), vanilla JS tools,
+Markdown guides. Hosting-neutral (GitHub Pages and Cloudflare Pages both serve `dist/` as-is).
+
+## Commands
+- `npm run dev` start dev server · `npm run build` build to `dist/` · `npm run preview` serve the build
+- `npm run check` audits the built site (internal links, titles, descriptions, word counts) — run after `npm run build`
+- `node tests/make-fixtures.mjs` then `node tests/test-<tool>.mjs` run browser tests (Playwright + Chromium)
+
+## Conventions
+- Site address, name, author, email, Search Console tag and ad slot sizes: **`src/config.ts` only**.
+- Tools are registered in `src/data/tools.ts` (slug, title < 60 chars, meta description, category, guide, related).
+- URLs: lowercase, hyphenated, trailing slash. One tool per URL. No near-duplicate pages; use options instead.
+- One H1 per page. Tool pages: lead paragraph (contains primary phrase) → tool → how-to → worked example → FAQs → related.
+- Every drafted text block carries an `AUTHOR REVIEW` comment (`{/* AUTHOR REVIEW: … */}` in .astro, a hidden
+  `[//]: # (AUTHOR REVIEW: …)` line in Markdown guides).
+- Never state official photo/file-size rules for any exam. Presets are generic and say "check your notification".
+- Ads: two empty reserved blocks (`top`, `bottom`) in `Base.astro` via `AdSlot`. No AdSense code. 404 has none.
+- All file processing is in the browser. Scripts are vanilla JS in `src/scripts/`, imported by the tool page with
+  `<script>import '../../scripts/x.js'</script>` (Astro bundles it). Heavy libraries load only on the pages that need them.
+- Fonts: system stack. One stylesheet: `src/styles/global.css`.
+
+## Folder structure
+```
+src/config.ts            site-wide settings
+src/data/tools.ts        tool registry + categories
+src/layouts/             Base, ToolLayout, GuideLayout, PageLayout
+src/components/          Header, Footer, Breadcrumb, AdSlot, FaqBlock, ToolCard, RelatedLinks
+src/content/guides/*.md  guides (content collection, schema in src/content.config.ts)
+src/pages/<slug>/index.astro   one folder per tool
+src/pages/{about,contact,privacy-policy,terms-and-disclaimer}.astro
+src/pages/{robots.txt,sitemap.xml}.ts   generated at build time (sitemap has lastmod)
+src/scripts/             vanilla JS for tools (common.js = shared helpers)
+src/styles/global.css
+public/                  favicon, apple-touch icon, og-default.png, author placeholder
+tests/                   static server, fixtures generator, Playwright tests
+scripts/                 make-images.mjs (icons/og), check-site.mjs (audit)
+_old/                    previous files (git-ignored, never reused)
+```
+
+## Checklist: adding a tool
+1. Add entry to `src/data/tools.ts` (slug = what people search; title < 60 chars; description 120–160 chars; guide slug; related).
+2. Create `src/pages/<slug>/index.astro` using `ToolLayout` (slots: `lead`, `tool`, default prose; pass `faqs`, 4–5 items).
+3. Put logic in `src/scripts/<name>.js` (vanilla JS), import it from the page.
+4. Prose 300–500 words incl. FAQs: how to use, worked example, 4–5 FAQs. Add `AUTHOR REVIEW` comments.
+5. Add guide `src/content/guides/<guide-slug>.md` (600–900 words, frontmatter: title ≤ 60, description, primaryPhrase, tool, published, updated).
+6. `npm run build`, `npm run check`, write/run a Playwright test, commit.
+7. Record the primary phrase and review status below.
+
+## Primary search phrases
+| Page | URL | Primary phrase |
+|---|---|---|
+| Home | `/` | exam form and classroom tools |
+| Photo and signature resizer | `/photo-and-signature-resizer/` | photo and signature resizer |
+| Guide | `/guides/how-to-reduce-photo-size-in-kb/` | how to reduce photo size in kb |
+
+## Backlog
+- [x] Phase 1: shell (config, layouts, components, stylesheet, home, guides index, 404, robots.txt, sitemap)
+- [x] Phase 2: About, Contact, Privacy Policy, Terms and Disclaimer
+- [x] Tool 1: Photo and signature resizer + guide
+- [ ] Tool 2: Compress PDF to a target size + guide
+- [ ] Tool 3: Image to PDF + guide
+- [ ] Tool 4: PDF to image + guide
+- [ ] Tool 5: Percentage calculator + guide
+- [ ] Tool 6: CGPA to percentage converter + guide
+- [ ] Tool 7: Age calculator for a cut-off date + guide
+- [ ] Tool 8: Seating plan generator + guide
+- [ ] Tool 9: Random student picker + guide
+- [ ] Tool 10: Marks to grade converter + guide
+- [ ] Phase 4: Lighthouse audit (mobile): home, one tool, one guide, each ≥ 90
+- [ ] Phase 5: domain + CNAME, GitHub Actions workflow, link/title audit, history check, add remote (no push)
+
+## Pages needing author review (all drafted text)
+- Home (intro, "why these tools exist")
+- About (name, photo, teaching background — placeholders)
+- Contact (email placeholder in `src/config.ts`)
+- Privacy Policy, Terms and Disclaimer
+- Photo and signature resizer + guide
+
+## Lighthouse results
+_Not run yet._

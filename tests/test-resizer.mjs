@@ -1,0 +1,27 @@
+import { chromium } from 'playwright';
+import { serve } from './serve.mjs';
+const s = await serve(4399);
+const b = await chromium.launch();
+const p = await b.newPage();
+const errors = [];
+p.on('pageerror', (e) => errors.push(e.message));
+p.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+await p.goto('http://localhost:4399/photo-and-signature-resizer/');
+await p.setInputFiles('#pr-file', 'tests/fixtures/photo.jpg');
+await p.waitForSelector('#pr-result:not([hidden])');
+await p.fill('#pr-w', '200'); await p.fill('#pr-h', '230');
+await p.click('[data-kb="20"]');
+await p.waitForFunction(() => document.querySelector('#pr-out .big')?.textContent.includes('target 20') || document.querySelector('#pr-out .big')?.textContent.includes('still'), null, { timeout: 15000 });
+console.log('result:', await p.textContent('#pr-out'));
+const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#pr-dl')]);
+await dl.saveAs('tests/fixtures/out.jpg');
+const sharp = (await import('sharp')).default;
+const fs = await import('node:fs');
+const m = await sharp('tests/fixtures/out.jpg').metadata();
+console.log('downloaded', m.width, m.height, m.format, fs.statSync('tests/fixtures/out.jpg').size, 'bytes');
+// impossible target
+await p.fill('#pr-kb', '1'); await p.fill('#pr-w', '1000'); await p.fill('#pr-h', '1000');
+await p.waitForFunction(() => document.querySelector('#pr-out .big')?.textContent.includes('still above'), null, { timeout: 15000 });
+console.log('fail case:', await p.textContent('#pr-out'));
+console.log('errors:', errors);
+await b.close(); s.close();

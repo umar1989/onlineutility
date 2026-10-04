@@ -1,0 +1,9 @@
+_old/
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+.env
+lighthouse-reports/
+tests/fixtures/

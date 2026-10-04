@@ -1,0 +1,44 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config';
+---
+<PageLayout title="About This Site and Its Author" description={`Who runs ${SITE.name}, why the tools were built and how they are kept free, private and useful for exam applicants, students and teachers.`} h1="About this site" crumb="About">
+  {/* AUTHOR REVIEW: replace the placeholders below with your real name, photo and background. This page matters a lot for AdSense: real, specific detail builds trust. */}
+  <img
+    src="/author-placeholder.svg"
+    alt="Placeholder portrait of the site author. Replace with a real photo."
+    width="160"
+    height="160"
+    loading="lazy"
+    style="border-radius:50%;float:right;margin:0 0 12px 16px;"
+  />
+  <p>
+    Hello, I am <strong>[YOUR NAME]</strong>. I am a teacher, and I built {SITE.name} to solve problems I kept seeing
+    around me: students and job applicants stuck on an online form because a photo was 12 KB too large, and teachers
+    losing time on jobs that a small program can do in a second.
+  </p>
+  <h2>My background</h2>
+  {/* AUTHOR REVIEW: describe your subject, school or college, years of teaching, and any qualifications. */}
+  <p>
+    [Add a short paragraph here: the subject you teach, the kind of institution, how many years you have been
+    teaching, and what led you to build web tools.]
+  </p>
+  <h2>What this site offers</h2>
+  <p>
+    The site has free tools for <a href="/photo-and-signature-resizer/">resizing photos and signatures</a>, working with
+    PDFs, calculating percentages, CGPA and age, and running a class. Each tool comes with a written
+    <a href="/guides/">guide</a> that explains the idea in plain English with a worked example.
+  </p>
+  <h2>How the tools work</h2>
+  <p>
+    Every tool runs inside your browser. When you pick a photo or PDF, it is processed on your own device and is never
+    sent to a server. You can read more in the <a href="/privacy-policy/">privacy policy</a>.
+  </p>
+  <h2>Accuracy and corrections</h2>
+  <p>
+    I test each tool before publishing it and update guides when something changes. Exam rules differ between
+    organisations and change from year to year, so the tools never claim to know the official limits for your exam.
+    Always follow the notification for your own form. If you spot a mistake, please tell me through the
+    <a href="/contact/">contact page</a>.
+  </p>
+</PageLayout>

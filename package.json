@@ -1,0 +1,23 @@
+{
+  "name": "online-utility",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview --host",
+    "check": "node scripts/check-site.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.3.5",
+    "fflate": "^0.8.3",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^6.4.299",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "lighthouse": "^13.5.0",
+    "playwright": "^1.63.0"
+  }
+}

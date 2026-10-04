@@ -1,0 +1,16 @@
+---
+import { ADS } from '../config';
+interface Props { position: 'top' | 'bottom' }
+const { position } = Astro.props;
+const slot = ADS.slots[position];
+---
+{ADS.enabled && (
+  <div
+    class="ad-slot"
+    data-ad-position={position}
+    data-ad-slot-id={slot.id}
+    style={`min-height:${slot.minHeight}px`}
+    role="complementary"
+    aria-label="Advertisement"
+  ></div>
+)}

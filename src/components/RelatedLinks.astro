@@ -1,0 +1,15 @@
+---
+import { TOOLS, getTool } from '../data/tools';
+import { getCollection } from 'astro:content';
+interface Props { tools?: string[]; guide?: string; heading?: string }
+const { tools = [], guide } = Astro.props;
+const toolItems = tools.map(getTool);
+const g = guide ? (await getCollection('guides')).find((x) => x.id === guide) : undefined;
+---
+<section class="related" aria-labelledby="related-h">
+  <h2 id="related-h">Related tools and guides</h2>
+  <ul>
+    {g && <li>Guide: <a href={`/guides/${g.id}/`}>{g.data.title}</a></li>}
+    {toolItems.map((t) => <li>Tool: <a href={`/${t.slug}/`}>{t.name}</a></li>)}
+  </ul>
+</section>

@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import ToolCard from '../components/ToolCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../config';
+import { TOOLS, CATEGORIES, type Category } from '../data/tools';
+
+const cats = Object.keys(CATEGORIES) as Category[];
+const guides = (await getCollection('guides')).sort((a, b) => b.data.updated.getTime() - a.data.updated.getTime()).slice(0, 4);
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    inLanguage: SITE.language,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: new URL('/apple-touch-icon.png', SITE.url).href,
+  },
+];
+---
+<Base title={`${SITE.name}: Free Exam Form and Classroom Tools`} description={SITE.description} path="/" jsonLd={ld}>
+  <section class="hero">
+    {/* AUTHOR REVIEW: edit this introduction so it sounds like you. */}
+    <h1>Free exam form and classroom tools that run in your browser</h1>
+    <p>
+      Resize a photo to the size your application form asks for, shrink a PDF, check your age on a cut-off date or
+      grade a class in minutes. Every tool here is free, needs no sign-up, and never uploads your files: the work
+      happens on your own phone or computer.
+    </p>
+  </section>
+
+  <div id="tools">
+    {cats.map((c) => (
+      <section aria-labelledby={`cat-${c}`}>
+        <h2 id={`cat-${c}`}>{CATEGORIES[c].name}</h2>
+        <p class="cat-blurb">{CATEGORIES[c].blurb}</p>
+        <ul class="cards">
+          {TOOLS.filter((t) => t.category === c).map((t) => <ToolCard tool={t} />)}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <section aria-labelledby="home-guides">
+    <h2 id="home-guides">Latest guides</h2>
+    <ul class="guide-list">
+      {guides.map((g) => (
+        <li>
+          <a href={`/guides/${g.id}/`}>{g.data.title}</a>
+          <p>{g.data.description}</p>
+        </li>
+      ))}
+    </ul>
+    <p><a href="/guides/">See all guides</a></p>
+  </section>
+
+  <section aria-labelledby="home-why">
+    {/* AUTHOR REVIEW: add a line or two about who you are and why you built this. */}
+    <h2 id="home-why">Why these tools exist</h2>
+    <p>
+      Most online forms reject a file for being a few kilobytes too large, and most free tools bury the result under
+      adverts or ask you to upload private documents. These tools are written to avoid both problems. They are
+      simple, they show you the result before you download it, and they explain what they did. Read the
+      <a href="/about/">about page</a> to see who runs the site, or the <a href="/privacy-policy/">privacy policy</a>
+      for exactly how your data is handled.
+    </p>
+  </section>
+</Base>

@@ -1,0 +1,33 @@
+---
+import { SITE } from '../config';
+import { TOOLS, CATEGORIES, type Category } from '../data/tools';
+const cats = Object.keys(CATEGORIES) as Category[];
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    {cats.map((c) => (
+      <div>
+        <h2 class="footer-h">{CATEGORIES[c].name}</h2>
+        <ul>
+          {TOOLS.filter((t) => t.category === c).map((t) => (
+            <li><a href={`/${t.slug}/`}>{t.name}</a></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+    <div>
+      <h2 class="footer-h">About this site</h2>
+      <ul>
+        <li><a href="/guides/">All guides</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/privacy-policy/">Privacy policy</a></li>
+        <li><a href="/terms-and-disclaimer/">Terms and disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-base">
+    <p>&copy; {year} {SITE.name}. Your files never leave your device.</p>
+  </div>
+</footer>

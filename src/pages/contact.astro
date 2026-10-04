@@ -1,0 +1,19 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config';
+---
+<PageLayout title="Contact Us" description={`Contact the ${SITE.name} team to report a mistake, suggest a tool or ask a question about how a tool works.`} h1="Contact" crumb="Contact">
+  {/* AUTHOR REVIEW: confirm the email address in src/config.ts and add any other way you want to be reached. */}
+  <p>
+    I read every message. You can write to me about a mistake in a guide, a tool that did not work on your device, or a
+    tool you would like to see added.
+  </p>
+  <p><strong>Email:</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+  <h2>Before you write</h2>
+  <ul>
+    <li>Tell me which tool you were using and which browser and phone or computer you have.</li>
+    <li>Please do not attach personal documents. I do not need your photo, PDF or certificates to fix a problem.</li>
+    <li>I cannot confirm the file rules of any exam. Please check the official notification for that.</li>
+  </ul>
+  <p>I usually reply within a few days.</p>
+</PageLayout>

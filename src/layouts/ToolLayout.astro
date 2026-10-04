@@ -1,0 +1,41 @@
+---
+import Base from './Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import FaqBlock from '../components/FaqBlock.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import { SITE } from '../config';
+import { getTool } from '../data/tools';
+
+interface Props { slug: string; faqs: { q: string; a: string }[] }
+const { slug, faqs } = Astro.props;
+const tool = getTool(slug);
+const url = new URL(`/${tool.slug}/`, SITE.url).href;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: tool.h1,
+  url,
+  description: tool.description,
+  applicationCategory: tool.applicationCategory,
+  operatingSystem: 'Any (runs in a web browser)',
+  browserRequirements: 'Requires JavaScript',
+  inLanguage: SITE.language,
+  dateModified: tool.lastUpdated,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+};
+---
+<Base title={tool.title} description={tool.description} path={`/${tool.slug}/`} jsonLd={[ld]}>
+  <Breadcrumb slot="breadcrumb" items={[{ name: tool.name }]} />
+  <article class="tool-page">
+    <h1>{tool.h1}</h1>
+    <div class="lead"><slot name="lead" /></div>
+    <noscript><p class="notice">This tool needs JavaScript. Please enable it in your browser settings.</p></noscript>
+    <section class="tool-box" aria-label={tool.h1}><slot name="tool" /></section>
+    <div class="prose">
+      <slot />
+    </div>
+    <FaqBlock faqs={faqs} />
+    <RelatedLinks tools={tool.related} guide={tool.guide} />
+  </article>
+</Base>
