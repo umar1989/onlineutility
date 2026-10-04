@@ -1,0 +1,73 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+const faqs = [
+  { q: 'How do I compress a PDF to 200 KB?', a: 'Choose the PDF, type 200, set the unit to KB and press Compress. The tool tries several resolutions and quality levels and keeps the best one that fits.' },
+  { q: 'Is my PDF uploaded to a server?', a: 'No. The file is opened and rebuilt inside your browser. It never leaves your device, which matters for certificates and ID documents.' },
+  { q: 'Why can I no longer select the text?', a: 'To make the file small enough, each page is turned into a compressed picture. That keeps the page looking the same but removes selectable text. Keep your original for any use that needs it.' },
+  { q: 'What if the target is too small?', a: 'The tool shows the smallest file it could make. Remove pages you do not need, or ask whether the form allows a larger limit.' },
+  { q: 'Can it open a password-protected PDF?', a: 'No. Remove the password in your PDF viewer first, then compress the unlocked copy.' },
+];
+---
+<ToolLayout slug="compress-pdf-to-specific-size" faqs={faqs}>
+  {/* AUTHOR REVIEW: lead paragraph, drafted by AI. */}
+  <p slot="lead">
+    Need to compress a PDF to a specific size for an upload form? Choose your file, enter the limit in KB or MB, and
+    this tool rebuilds the PDF in your browser until it fits. Nothing is uploaded.
+  </p>
+
+  <div slot="tool">
+    <div class="field">
+      <label for="pc-file">Choose a PDF file</label>
+      <input id="pc-file" type="file" accept="application/pdf,.pdf" />
+    </div>
+    <div class="row two">
+      <div class="field">
+        <label for="pc-size">Target size (maximum)</label>
+        <input id="pc-size" type="number" min="1" step="any" inputmode="decimal" value="200" />
+      </div>
+      <div class="field">
+        <label for="pc-unit">Unit</label>
+        <select id="pc-unit"><option value="KB">KB</option><option value="MB">MB</option></select>
+      </div>
+    </div>
+    <div class="field">
+      <span class="label">Quick targets</span>
+      <div class="chips">
+        <button type="button" class="chip" data-pc data-size="100" data-unit="KB" aria-pressed="false">100 KB</button>
+        <button type="button" class="chip" data-pc data-size="200" data-unit="KB" aria-pressed="true">200 KB</button>
+        <button type="button" class="chip" data-pc data-size="500" data-unit="KB" aria-pressed="false">500 KB</button>
+        <button type="button" class="chip" data-pc data-size="1" data-unit="MB" aria-pressed="false">1 MB</button>
+      </div>
+    </div>
+    <div class="btn-row"><button type="button" id="pc-go" class="btn" disabled>Compress PDF</button></div>
+    <progress id="pc-prog" value="0" max="1" hidden></progress>
+    <p id="pc-status" class="status" role="status" aria-live="polite">Choose a PDF to begin.</p>
+    <div id="pc-result" class="result" hidden>
+      <div id="pc-out" aria-live="polite"></div>
+      <div class="btn-row"><button type="button" id="pc-dl" class="btn" disabled>Download compressed PDF</button></div>
+    </div>
+  </div>
+
+  {/* AUTHOR REVIEW: how-to, worked example and notes drafted by AI. */}
+  <h2>How to compress a PDF to a specific size</h2>
+  <ol>
+    <li>Choose the PDF from your device. Scans and photo-heavy files shrink the most.</li>
+    <li>Type the maximum size from your form and pick KB or MB, or tap a quick target.</li>
+    <li>Press Compress PDF and wait. Larger files take longer because every page is redrawn.</li>
+    <li>Read the final size shown, then download the new file.</li>
+  </ol>
+  <h2>Worked example</h2>
+  <p class="worked">
+    You scanned a four-page certificate and the PDF is 3.4 MB, but the form accepts up to 500 KB. Choose the file, tap
+    500 KB and press Compress. The tool first tries a high-quality setting, sees that the file is still too big, then
+    steps down until it lands on something like 470 KB. The pages look nearly the same on screen, and you upload the
+    new file.
+  </p>
+  <h2>What this tool does and does not do</h2>
+  <p>
+    To reach a size you choose, the tool turns each page into a compressed JPEG picture and builds a fresh PDF. That is
+    why it can hit a target reliably, and also why text is no longer selectable afterwards. Always keep your original
+    file. The tool never knows your exam rules, so use the limit written in your official notification.
+  </p>
+  <script>import '../../scripts/pdf-compress.js';</script>
+</ToolLayout>

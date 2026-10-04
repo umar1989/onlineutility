@@ -54,12 +54,14 @@ _old/                    previous files (git-ignored, never reused)
 | Home | `/` | exam form and classroom tools |
 | Photo and signature resizer | `/photo-and-signature-resizer/` | photo and signature resizer |
 | Guide | `/guides/how-to-reduce-photo-size-in-kb/` | how to reduce photo size in kb |
+| Compress PDF | `/compress-pdf-to-specific-size/` | compress pdf to specific size |
+| Guide | `/guides/how-to-make-a-pdf-smaller-for-upload/` | how to make a pdf smaller |
 
 ## Backlog
 - [x] Phase 1: shell (config, layouts, components, stylesheet, home, guides index, 404, robots.txt, sitemap)
 - [x] Phase 2: About, Contact, Privacy Policy, Terms and Disclaimer
 - [x] Tool 1: Photo and signature resizer + guide
-- [ ] Tool 2: Compress PDF to a target size + guide
+- [x] Tool 2: Compress PDF to a target size + guide
 - [ ] Tool 3: Image to PDF + guide
 - [ ] Tool 4: PDF to image + guide
 - [ ] Tool 5: Percentage calculator + guide
@@ -77,6 +79,7 @@ _old/                    previous files (git-ignored, never reused)
 - Contact (email placeholder in `src/config.ts`)
 - Privacy Policy, Terms and Disclaimer
 - Photo and signature resizer + guide
+- Compress PDF + guide
 
 ## Lighthouse results
 _Not run yet._
