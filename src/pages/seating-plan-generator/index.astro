@@ -1,0 +1,85 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+const faqs = [
+  { q: 'How do I make a seating plan for a classroom?', a: 'Enter the number of rows and columns, add student names or a roll number range, choose an order and press Make seating plan. Print it or copy it to a spreadsheet.' },
+  { q: 'Can I leave gaps between students for an exam?', a: 'Yes. Choose "Every other seat in a row", "Every other row" or "Checkerboard" under spacing. Blocked seats are marked with a cross and are never filled.' },
+  { q: 'What does the snake order do?', a: 'Row one runs left to right, row two right to left, and so on. It keeps consecutive roll numbers close together at the row ends.' },
+  { q: 'Is the student list stored anywhere?', a: 'No. Names are used only in your browser while the page is open. Closing or refreshing the page clears them, and nothing is sent to a server.' },
+  { q: 'What if there are more students than seats?', a: 'The tool seats as many as it can and lists the rest in red, so you know to add a row or column.' },
+];
+---
+<ToolLayout slug="seating-plan-generator" faqs={faqs}>
+  {/* AUTHOR REVIEW: lead paragraph, drafted by AI. */}
+  <p slot="lead">
+    This seating plan generator builds a printable classroom or exam hall chart in seconds. Enter rows, columns and your
+    student names or roll numbers, pick an order, and print the plan or copy it to a spreadsheet.
+  </p>
+
+  <div slot="tool">
+    <div class="no-print">
+      <div class="field"><label for="sp-title">Title (optional)</label><input id="sp-title" type="text" placeholder="e.g. Class 9B, Science test, Room 12" maxlength="80" /></div>
+      <div class="row two">
+        <div class="field"><label for="sp-rows">Rows</label><input id="sp-rows" type="number" min="1" max="30" value="5" inputmode="numeric" /></div>
+        <div class="field"><label for="sp-cols">Columns (seats per row)</label><input id="sp-cols" type="number" min="1" max="30" value="6" inputmode="numeric" /></div>
+      </div>
+      <div class="field">
+        <label for="sp-source">Students</label>
+        <select id="sp-source"><option value="names">Type or paste names</option><option value="range">Roll number range</option></select>
+      </div>
+      <div class="field" id="sp-namebox">
+        <label for="sp-names">One name per line</label>
+        <textarea id="sp-names" placeholder="Asha Verma&#10;Rahul Singh&#10;Meena Iyer"></textarea>
+      </div>
+      <div class="row three" id="sp-rangebox" hidden>
+        <div class="field"><label for="sp-from">From roll number</label><input id="sp-from" type="number" value="1" inputmode="numeric" /></div>
+        <div class="field"><label for="sp-to">To roll number</label><input id="sp-to" type="number" value="30" inputmode="numeric" /></div>
+        <div class="field"><label for="sp-prefix">Prefix (optional)</label><input id="sp-prefix" type="text" placeholder="e.g. 9B-" maxlength="10" /></div>
+      </div>
+      <div class="row two">
+        <div class="field">
+          <label for="sp-order">Seating order</label>
+          <select id="sp-order"><option value="row">In order, row by row</option><option value="snake">Snake (alternate direction)</option><option value="random">Random shuffle</option></select>
+        </div>
+        <div class="field">
+          <label for="sp-gap">Spacing</label>
+          <select id="sp-gap"><option value="none">Use every seat</option><option value="alt-col">Every other seat in a row</option><option value="alt-row">Every other row</option><option value="check">Checkerboard</option></select>
+        </div>
+      </div>
+      <div class="btn-row"><button type="button" id="sp-go" class="btn">Make seating plan</button></div>
+      <p id="sp-status" class="status" role="status" aria-live="polite">Fill in the details and press the button.</p>
+    </div>
+    <div id="sp-result" hidden>
+      <h2 id="sp-heading" style="margin-top:.5em">Seating plan</h2>
+      <div id="sp-plan"></div>
+      <div class="btn-row no-print">
+        <button type="button" id="sp-print" class="btn">Print</button>
+        <button type="button" id="sp-shuffle" class="btn secondary" hidden>Shuffle again</button>
+        <button type="button" id="sp-copy" class="btn secondary">Copy as text</button>
+        <button type="button" id="sp-csv" class="btn secondary">Download CSV</button>
+      </div>
+    </div>
+  </div>
+
+  {/* AUTHOR REVIEW: how-to and worked example drafted by AI. Add your own exam-hall experience. */}
+  <h2>How to make a seating plan</h2>
+  <ol>
+    <li>Type the number of rows and the number of seats in each row.</li>
+    <li>Paste your class list, one name per line, or switch to a roll number range.</li>
+    <li>Choose the order. Random shuffle is useful for tests; row by row suits a normal class.</li>
+    <li>Pick a spacing option if you need empty seats between students, then press Make seating plan.</li>
+    <li>Print the chart, copy it, or download it as a CSV file.</li>
+  </ol>
+  <h2>Worked example</h2>
+  <p class="worked">
+    You have 28 students and a room with 5 rows of 6 seats, which is 30 seats. Paste the names, choose Random shuffle
+    and press the button. All 28 students are placed, two seats stay empty and the chart is ready to print. If you
+    choose Checkerboard instead, only 15 seats are usable, so the tool seats 15 students and lists the other 13 in red.
+  </p>
+  <h2>Tips for a fair plan</h2>
+  <p>
+    Count your seats before you start: with spacing turned on, a room holds fewer students than its desks suggest.
+    Stand at the back of the room when you read the plan, because "Front of the room" is at the top of the chart.
+    Keep the printed copy with your attendance record.
+  </p>
+  <script>import '../../scripts/seating.js';</script>
+</ToolLayout>
