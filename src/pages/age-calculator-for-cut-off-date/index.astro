@@ -1,0 +1,71 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+const faqs = [
+  { q: 'How do I calculate my age on a cut-off date?', a: 'Enter your date of birth and the cut-off date from the notification. The tool counts complete years, then months, then days between them.' },
+  { q: 'Is the cut-off date counted in my age?', a: 'The tool counts up to and including the cut-off date, so someone born on 1 January is exactly one year old on the next 1 January. Check how your notification words it.' },
+  { q: 'What does "within completed years" mean?', a: 'It lets you stay eligible until the day before you complete one more year. For a limit of 27, that means up to 27 years 11 months 30 days. The other option stops at exactly 27 years.' },
+  { q: 'Where do I enter age relaxation?', a: 'Type the extra years your notification allows for your category in the relaxation box. We do not list category rules, so take that number from the official notification.' },
+  { q: 'Does it work for leap-year birthdays?', a: 'Yes. Months have their real number of days, and a 29 February birthday is treated as 1 March in non-leap years when checking limits.' },
+];
+---
+<ToolLayout slug="age-calculator-for-cut-off-date" faqs={faqs}>
+  {/* AUTHOR REVIEW: lead paragraph, drafted by AI. */}
+  <p slot="lead">
+    Use this age calculator for a cut-off date to find your exact age in years, months and days on the date a
+    notification names. Add the minimum and maximum age limits to see at once whether you are within them.
+  </p>
+
+  <div slot="tool" id="ag-tool">
+    <div class="row two">
+      <div class="field"><label for="ag-dob">Date of birth</label><input id="ag-dob" type="date" /></div>
+      <div class="field">
+        <label for="ag-cut">Cut-off date (age as on)</label>
+        <input id="ag-cut" type="date" />
+        <div class="chips"><button type="button" class="chip" id="ag-today">Use today</button></div>
+      </div>
+    </div>
+    <details>
+      <summary>Check an age limit (optional)</summary>
+      <div class="row three" style="margin-top:10px">
+        <div class="field"><label for="ag-min">Minimum age (years)</label><input id="ag-min" type="number" min="0" inputmode="numeric" /></div>
+        <div class="field"><label for="ag-max">Maximum age (years)</label><input id="ag-max" type="number" min="0" inputmode="numeric" /></div>
+        <div class="field"><label for="ag-relax">Relaxation (extra years)</label><input id="ag-relax" type="number" min="0" inputmode="numeric" value="0" /></div>
+      </div>
+      <div class="field">
+        <label for="ag-rule">How does the notification count the maximum?</label>
+        <select id="ag-rule">
+          <option value="exact">Not more than X years (exactly X years 0 months 0 days)</option>
+          <option value="completed">Within X completed years (up to X years 11 months 30 days)</option>
+        </select>
+      </div>
+    </details>
+    <div class="result" aria-live="polite">
+      <p class="label" style="margin:0">Your age on the cut-off date</p>
+      <p class="big" id="ag-out">–</p>
+      <p id="ag-detail" class="hint">Enter your date of birth and the cut-off date.</p>
+      <div id="ag-elig"></div>
+    </div>
+  </div>
+
+  {/* AUTHOR REVIEW: how-to and worked example drafted by AI. */}
+  <h2>How to find your age on a cut-off date</h2>
+  <ol>
+    <li>Select your date of birth.</li>
+    <li>Select the "age as on" date given in the notification, or press "Use today" for your age now.</li>
+    <li>Read the age in years, months and days. The total number of days is shown below it.</li>
+    <li>If the notification gives an age range, open "Check an age limit" and enter the numbers to see the earliest and latest birth dates that qualify.</li>
+  </ol>
+  <h2>Worked example</h2>
+  <p class="worked">
+    Date of birth 15 May 2000 and cut-off date 1 January 2026. From 15 May 2000 to 15 May 2025 is 25 complete years.
+    From 15 May to 15 December is 7 months, and from 15 December to 1 January is 17 days. The result is 25 years,
+    7 months and 17 days. With a maximum age of 27, you are comfortably within the limit.
+  </p>
+  <h2>Before you rely on the result</h2>
+  <p>
+    Notifications word age rules in different ways, and relaxations depend on category. That is why this tool asks you
+    for the numbers instead of guessing them. Read the official notification, apply the cut-off date it names, and use
+    this calculator only to do the arithmetic.
+  </p>
+  <script>import '../../scripts/age.js';</script>
+</ToolLayout>

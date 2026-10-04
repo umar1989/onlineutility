@@ -58,6 +58,12 @@ _old/                    previous files (git-ignored, never reused)
 | Guide | `/guides/how-to-combine-photos-into-one-pdf/` | how to combine photos into one pdf |
 | PDF to image | `/pdf-to-image/` | pdf to image converter |
 | Guide | `/guides/how-to-convert-pdf-pages-to-images/` | how to convert pdf pages to images |
+| Percentage calculator | `/percentage-calculator/` | percentage calculator |
+| Guide | `/guides/how-to-calculate-percentage-of-marks/` | how to calculate percentage of marks |
+| CGPA to percentage | `/cgpa-to-percentage-calculator/` | cgpa to percentage calculator |
+| Guide | `/guides/how-to-convert-cgpa-to-percentage/` | how to convert cgpa to percentage |
+| Age calculator | `/age-calculator-for-cut-off-date/` | age calculator for cut off date |
+| Guide | `/guides/how-to-calculate-age-on-a-cut-off-date/` | how to calculate age on a cut-off date |
 | Compress PDF | `/compress-pdf-to-specific-size/` | compress pdf to specific size |
 | Guide | `/guides/how-to-make-a-pdf-smaller-for-upload/` | how to make a pdf smaller |
 
@@ -68,9 +74,9 @@ _old/                    previous files (git-ignored, never reused)
 - [x] Tool 2: Compress PDF to a target size + guide
 - [x] Tool 3: Image to PDF + guide
 - [x] Tool 4: PDF to image + guide
-- [ ] Tool 5: Percentage calculator + guide
-- [ ] Tool 6: CGPA to percentage converter + guide
-- [ ] Tool 7: Age calculator for a cut-off date + guide
+- [x] Tool 5: Percentage calculator + guide
+- [x] Tool 6: CGPA to percentage converter + guide
+- [x] Tool 7: Age calculator for a cut-off date + guide
 - [ ] Tool 8: Seating plan generator + guide
 - [ ] Tool 9: Random student picker + guide
 - [ ] Tool 10: Marks to grade converter + guide
@@ -84,6 +90,7 @@ _old/                    previous files (git-ignored, never reused)
 - Privacy Policy, Terms and Disclaimer
 - Photo and signature resizer + guide
 - Compress PDF + guide
+- Percentage calculator, CGPA to percentage, Age calculator (each + guide)
 - PDF to image + guide
 - Image to PDF + guide
 
