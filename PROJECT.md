@@ -86,7 +86,7 @@ _old/                    previous files (git-ignored, never reused)
 - [x] Tool 8: Seating plan generator + guide
 - [x] Tool 9: Random student picker + guide
 - [x] Tool 10: Marks to grade converter + guide
-- [ ] Phase 4: Lighthouse audit (mobile): home, one tool, one guide, each ≥ 90
+- [x] Phase 4: Lighthouse audit (mobile): home, one tool, one guide, each ≥ 90
 - [ ] Phase 5: domain + CNAME, GitHub Actions workflow, link/title audit, history check, add remote (no push)
 
 ## Pages needing author review (all drafted text)
@@ -102,4 +102,15 @@ _old/                    previous files (git-ignored, never reused)
 - Image to PDF + guide
 
 ## Lighthouse results
-_Not run yet._
+Run 2026-10-05 against the production build served locally, Lighthouse mobile preset (simulated slow 4G, 4x CPU slowdown),
+Chromium 153. No fixes were needed. Ads were not present (empty reserved blocks), so real scores will drop slightly once AdSense loads.
+
+| Page | Performance | Accessibility | Best practices | SEO |
+|---|---|---|---|---|
+| Home `/` | 100 | 100 | 100 | 100 |
+| Tool `/photo-and-signature-resizer/` | 100 | 100 | 100 | 100 |
+| Guide `/guides/how-to-reduce-photo-size-in-kb/` | 100 | 100 | 100 | 100 |
+| Also checked: compress PDF, marks to grade, seating plan, age calculator, random picker | 100 | 100 | 100 | 100 |
+
+All pages: CLS 0, LCP about 1.1 s. Re-run after adding AdSense: `npm run build`, `node tests/serve.mjs 4400`, then
+`CHROME_PATH=<playwright chromium> npx lighthouse http://localhost:4400/ --only-categories=performance,seo,accessibility`.
