@@ -24,5 +24,23 @@ eq('range', (await cells())[0], ['9B-1', '9B-2', '9B-3']);
 await p.fill('#sp-from', '9'); await p.click('#sp-go');
 eq('bad range message', (await p.textContent('#sp-status')).includes('Enter a roll number range'), true);
 
-await p.goto('http://localhost:4399/random-student-picker/').catch(() => {});
+await p.goto('http://localhost:4399/random-student-picker/');
+await p.fill('#rp-names', 'A\nB\nC\nD');
+const seen = [];
+for (let i = 0; i < 4; i++) {
+  await p.click('#rp-pick');
+  await p.waitForFunction(() => !document.querySelector('#rp-pick').disabled, null, { timeout: 5000 });
+  seen.push(await p.textContent('#rp-shown'));
+}
+eq('4 picks cover all 4 names with no repeat', [...seen].sort(), ['A', 'B', 'C', 'D']);
+await p.click('#rp-pick');
+eq('exhausted message', (await p.textContent('#rp-status')).includes('Everyone has been picked'), true);
+await p.click('#rp-reset');
+await p.fill('#rp-count', '3'); await p.click('#rp-pick');
+await p.waitForFunction(() => !document.querySelector('#rp-pick').disabled, null, { timeout: 5000 });
+eq('pick 3 distinct', new Set((await p.textContent('#rp-shown')).split(', ')).size, 3);
+await p.fill('#rp-gsize', '2'); await p.click('#rp-gmake');
+eq('2 groups of 2', await p.$$eval('#rp-groups .group h4', (h) => h.map((x) => x.textContent)), ['Group 1 (2)', 'Group 2 (2)']);
+await p.fill('#rp-names', 'A\nB\nC\nD\nE'); await p.selectOption('#rp-gmode', 'size'); await p.fill('#rp-gsize', '2'); await p.click('#rp-gmake');
+eq('size 2 of 5 -> 3 groups', (await p.$$('#rp-groups .group')).length, 3);
 console.log('errors', errors); await b.close(); s.close();
