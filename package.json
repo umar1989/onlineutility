@@ -7,7 +7,8 @@
     "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview --host",
-    "check": "node scripts/check-site.mjs"
+    "check": "node scripts/check-site.mjs",
+    "set-domain": "node scripts/set-domain.mjs"
   },
   "dependencies": {
     "astro": "^7.3.5",

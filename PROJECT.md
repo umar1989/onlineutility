@@ -87,7 +87,13 @@ _old/                    previous files (git-ignored, never reused)
 - [x] Tool 9: Random student picker + guide
 - [x] Tool 10: Marks to grade converter + guide
 - [x] Phase 4: Lighthouse audit (mobile): home, one tool, one guide, each ≥ 90
-- [ ] Phase 5: domain + CNAME, GitHub Actions workflow, link/title audit, history check, add remote (no push)
+- [ ] Phase 5 (partly done):
+  - [ ] **Domain: PENDING.** Site address is still `https://example.com` in `src/config.ts`. Run `npm run set-domain -- yourdomain.in`
+        (updates config, writes `public/CNAME`), then `npm run build && npm run check`, commit, push.
+  - [x] GitHub Actions workflow `.github/workflows/deploy.yml` (build, audit, deploy to GitHub Pages)
+  - [x] Build + audit: 27 pages, 732 internal links, titles/descriptions/headings/word counts: no problems
+  - [x] History check: `_old/`, `node_modules/`, `dist/` ignored; no secrets or private files committed
+  - [x] Remote `origin` = https://github.com/umar1989/onlineutility.git (NOT pushed)
 
 ## Pages needing author review (all drafted text)
 - Home (intro, "why these tools exist")
@@ -100,6 +106,12 @@ _old/                    previous files (git-ignored, never reused)
 - Seating plan generator, Random student picker, Marks to grade converter (each + guide)
 - PDF to image + guide
 - Image to PDF + guide
+
+## Hosting notes
+- GitHub Pages: Settings > Pages > Source = "GitHub Actions". Cloudflare Pages: build command `npm run build`, output directory `dist`.
+  Same output works on both, no adapter. `public/CNAME` is only used by GitHub Pages and is ignored by Cloudflare.
+- Ads: when AdSense approves, add the script in `src/layouts/Base.astro` (marked comment) and slot ids in `src/config.ts`.
+- Search Console: paste the verification code into `googleSiteVerification` in `src/config.ts`.
 
 ## Lighthouse results
 Run 2026-10-05 against the production build served locally, Lighthouse mobile preset (simulated slow 4G, 4x CPU slowdown),
