@@ -1,0 +1,24 @@
+import { chromium } from 'playwright';
+import { serve } from './serve.mjs';
+import fs from 'node:fs';
+import sharp from 'sharp';
+const s = await serve(4399);
+const b = await chromium.launch(); const p = await b.newPage();
+const errors = []; p.on('pageerror', (e) => errors.push(e.message)); p.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+await p.goto('http://localhost:4399/pdf-to-image/');
+await p.setInputFiles('#pi-file', 'tests/fixtures/sample.pdf');
+await p.click('#pi-go');
+await p.waitForFunction(() => !document.querySelector('#pi-result').hidden, null, { timeout: 60000 });
+console.log(await p.textContent('#pi-status'), await p.locator('#pi-list li').count(), 'thumbs');
+const [d1] = await Promise.all([p.waitForEvent('download'), p.click('#pi-list li:first-child button')]);
+await d1.saveAs('tests/fixtures/page1.jpg');
+const m = await sharp('tests/fixtures/page1.jpg').metadata(); console.log('page1', m.width, m.height, m.format);
+const [d2] = await Promise.all([p.waitForEvent('download'), p.click('#pi-zip')]);
+await d2.saveAs('tests/fixtures/pages.zip'); console.log('zip bytes', fs.statSync('tests/fixtures/pages.zip').size);
+// page range + bad range
+await p.fill('#pi-pages', '2'); await p.click('#pi-go');
+await p.waitForFunction(() => document.querySelectorAll('#pi-list li').length === 1, null, { timeout: 30000 });
+await p.fill('#pi-pages', '9'); await p.click('#pi-go');
+await p.waitForFunction(() => document.querySelector('#pi-status').textContent.includes('between'), null, { timeout: 30000 });
+console.log(await p.textContent('#pi-status'));
+console.log('errors', errors); await b.close(); s.close();

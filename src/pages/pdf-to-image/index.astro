@@ -1,0 +1,67 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+const faqs = [
+  { q: 'How do I save one page of a PDF as a JPG?', a: 'Choose the PDF, type the page number in the pages box, pick JPG and press Convert. Then use the Download button under that page.' },
+  { q: 'Is my PDF uploaded?', a: 'No. Pages are drawn onto a canvas inside your browser and turned into images there. The PDF never leaves your device.' },
+  { q: 'Which should I pick, JPG or PNG?', a: 'JPG gives smaller files and suits scans and photos. PNG is sharper for text and line drawings but the files are larger.' },
+  { q: 'What resolution should I choose?', a: '150 dpi is a good balance for reading on screen. Use 300 dpi for printing and 96 dpi when you need a small file.' },
+  { q: 'Can I get all pages at once?', a: 'Yes. Leave the pages box empty to convert every page, then use "Download all as ZIP". Up to 60 pages can be converted at a time.' },
+];
+---
+<ToolLayout slug="pdf-to-image" faqs={faqs}>
+  {/* AUTHOR REVIEW: lead paragraph, drafted by AI. */}
+  <p slot="lead">
+    This PDF to image converter turns pages of a PDF into JPG or PNG pictures. Choose the pages and the quality, then
+    download each image or all of them as a ZIP file. The conversion runs in your browser and nothing is uploaded.
+  </p>
+
+  <div slot="tool">
+    <div class="field">
+      <label for="pi-file">Choose a PDF file</label>
+      <input id="pi-file" type="file" accept="application/pdf,.pdf" />
+    </div>
+    <div class="row three">
+      <div class="field">
+        <label for="pi-fmt">Image format</label>
+        <select id="pi-fmt"><option value="jpg">JPG (smaller)</option><option value="png">PNG (sharper)</option></select>
+      </div>
+      <div class="field">
+        <label for="pi-dpi">Resolution</label>
+        <select id="pi-dpi"><option value="96">96 dpi (small)</option><option value="150" selected>150 dpi (balanced)</option><option value="300">300 dpi (print)</option></select>
+      </div>
+      <div class="field">
+        <label for="pi-pages">Pages (optional)</label>
+        <input id="pi-pages" type="text" placeholder="e.g. 1-3, 5 (blank = all)" />
+      </div>
+    </div>
+    <div class="btn-row"><button type="button" id="pi-go" class="btn" disabled>Convert to images</button></div>
+    <progress id="pi-prog" value="0" max="1" hidden></progress>
+    <p id="pi-status" class="status" role="status" aria-live="polite">Choose a PDF to begin.</p>
+    <div id="pi-result" class="result" hidden>
+      <div class="btn-row"><button type="button" id="pi-zip" class="btn" hidden>Download all as ZIP</button></div>
+      <ul id="pi-list" class="thumbs"></ul>
+    </div>
+  </div>
+
+  {/* AUTHOR REVIEW: how-to and worked example drafted by AI. */}
+  <h2>How to convert a PDF to images</h2>
+  <ol>
+    <li>Choose the PDF from your device.</li>
+    <li>Pick JPG or PNG and a resolution. If you only need some pages, type them, for example 2-4, 7.</li>
+    <li>Press Convert to images and wait while each page is drawn.</li>
+    <li>Download single pictures with the buttons below the previews, or take them all as a ZIP.</li>
+  </ol>
+  <h2>Worked example</h2>
+  <p class="worked">
+    A university sends your admit card as a three-page PDF, but the form for the next step wants the first page as a
+    picture. Choose the PDF, type 1 in the pages box, keep JPG at 150 dpi and press Convert. You get one clear image
+    of about 200 to 400 KB. If the form has a size limit, send that image through the photo and signature resizer.
+  </p>
+  <h2>Notes</h2>
+  <p>
+    Higher resolution gives sharper text but bigger files and slower conversion, so start with 150 dpi. Very large
+    pages are scaled down to a safe size so your browser does not run out of memory. Always check the final picture
+    against the requirements in your official notification.
+  </p>
+  <script>import '../../scripts/pdf-to-image.js';</script>
+</ToolLayout>

@@ -56,6 +56,8 @@ _old/                    previous files (git-ignored, never reused)
 | Guide | `/guides/how-to-reduce-photo-size-in-kb/` | how to reduce photo size in kb |
 | Image to PDF | `/image-to-pdf/` | image to pdf converter |
 | Guide | `/guides/how-to-combine-photos-into-one-pdf/` | how to combine photos into one pdf |
+| PDF to image | `/pdf-to-image/` | pdf to image converter |
+| Guide | `/guides/how-to-convert-pdf-pages-to-images/` | how to convert pdf pages to images |
 | Compress PDF | `/compress-pdf-to-specific-size/` | compress pdf to specific size |
 | Guide | `/guides/how-to-make-a-pdf-smaller-for-upload/` | how to make a pdf smaller |
 
@@ -65,7 +67,7 @@ _old/                    previous files (git-ignored, never reused)
 - [x] Tool 1: Photo and signature resizer + guide
 - [x] Tool 2: Compress PDF to a target size + guide
 - [x] Tool 3: Image to PDF + guide
-- [ ] Tool 4: PDF to image + guide
+- [x] Tool 4: PDF to image + guide
 - [ ] Tool 5: Percentage calculator + guide
 - [ ] Tool 6: CGPA to percentage converter + guide
 - [ ] Tool 7: Age calculator for a cut-off date + guide
@@ -82,6 +84,7 @@ _old/                    previous files (git-ignored, never reused)
 - Privacy Policy, Terms and Disclaimer
 - Photo and signature resizer + guide
 - Compress PDF + guide
+- PDF to image + guide
 - Image to PDF + guide
 
 ## Lighthouse results
