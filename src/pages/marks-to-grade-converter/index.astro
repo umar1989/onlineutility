@@ -1,0 +1,75 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+const faqs = [
+  { q: 'How do I convert marks to a grade?', a: 'Divide marks obtained by maximum marks and multiply by 100 to get the percentage, then find the band that percentage falls in. The tool does both steps and shows the working.' },
+  { q: 'Is the default grade scale official?', a: 'No. It is only an example. Every school and board sets its own boundaries, so edit the table to match the one you must follow.' },
+  { q: 'Can I grade a whole class at once?', a: 'Yes. Paste one student per line, such as "Asha Verma, 78", set the maximum marks, and press Grade the class. You can copy the result or download it as CSV.' },
+  { q: 'What happens at the exact boundary?', a: 'A percentage equal to a band\'s minimum gets that band. With a minimum of 80 for A, exactly 80% is an A and 79.99% is not.' },
+  { q: 'Are student names stored?', a: 'No. The names and marks stay in your browser tab and are not sent to any server. Refreshing the page clears them.' },
+];
+---
+<ToolLayout slug="marks-to-grade-converter" faqs={faqs}>
+  {/* AUTHOR REVIEW: lead paragraph, drafted by AI. */}
+  <p slot="lead">
+    This marks to grade converter turns marks into a percentage and a grade, for one student or a whole class. The
+    grade boundaries are editable, so you can match your own school's scale instead of relying on a fixed table.
+  </p>
+
+  <div slot="tool">
+    <div class="row two">
+      <div class="field"><label for="mg-marks">Marks obtained</label><input id="mg-marks" type="number" min="0" step="any" inputmode="decimal" /></div>
+      <div class="field"><label for="mg-max">Maximum marks</label><input id="mg-max" type="number" min="1" step="any" inputmode="decimal" value="100" /></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <p class="label" style="margin:0">Grade</p>
+      <p class="big" id="mg-out">–</p>
+      <p id="mg-work" class="hint">Enter the marks obtained and the maximum marks.</p>
+    </div>
+
+    <h2>Grade boundaries</h2>
+    <p class="hint">Example scales only. Edit the minimum percentage and the grade name to match your school.</p>
+    <div class="field">
+      <label for="mg-preset">Start from an example</label>
+      <select id="mg-preset"><option value="ten">A+ to E (ten-point style)</option><option value="letter">A to F letters</option><option value="simple">Distinction, first class, pass, fail</option></select>
+    </div>
+    <div class="table-wrap">
+      <table class="data"><thead><tr><th scope="col">Minimum %</th><th scope="col">Grade</th><th scope="col"><span class="sr-only">Remove</span></th></tr></thead><tbody id="mg-scale"></tbody></table>
+    </div>
+    <div class="btn-row"><button type="button" id="mg-add" class="btn secondary">Add a grade band</button></div>
+
+    <h2>Grade a whole class</h2>
+    <div class="field">
+      <label for="mg-bulk">One student per line, name then marks</label>
+      <textarea id="mg-bulk" placeholder="Asha Verma, 78&#10;Rahul Singh, 64&#10;Meena Iyer, 91"></textarea>
+      <p class="hint">Uses the maximum marks entered above.</p>
+    </div>
+    <div class="btn-row"><button type="button" id="mg-go" class="btn">Grade the class</button></div>
+    <p id="mg-status" class="status" role="status" aria-live="polite"></p>
+    <div id="mg-result" hidden>
+      <div id="mg-table"></div>
+      <div class="btn-row"><button type="button" id="mg-copy" class="btn secondary">Copy as text</button><button type="button" id="mg-csv" class="btn secondary">Download CSV</button></div>
+    </div>
+  </div>
+
+  {/* AUTHOR REVIEW: how-to and worked example drafted by AI. Add the grading scheme you actually use. */}
+  <h2>How to convert marks to grades</h2>
+  <ol>
+    <li>Enter marks obtained and maximum marks to see one student's percentage and grade.</li>
+    <li>Check the grade table and change the minimum percentages and names to match your school's scheme.</li>
+    <li>For a class, paste "name, marks" lines, press Grade the class and read the table and summary.</li>
+    <li>Copy the results or download them as a CSV file for your register.</li>
+  </ol>
+  <h2>Worked example</h2>
+  <p class="worked">
+    A test is out of 50 and Rahul scored 36. The working is 36 ÷ 50 × 100 = 72%. On the example ten-point style scale,
+    70 is the minimum for B+ and 80 for A, so 72% earns a B+. If your school gives B+ from 75, change that row and
+    the answer updates straight away.
+  </p>
+  <h2>Using the result responsibly</h2>
+  <p>
+    A grade table is a rule that your school or board owns, so this tool only applies the numbers you give it. Keep the
+    official scale at hand, decide in advance how to treat marks right on a boundary, and keep your own records of
+    final results.
+  </p>
+  <script>import '../../scripts/grades.js';</script>
+</ToolLayout>

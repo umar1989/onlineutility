@@ -64,6 +64,12 @@ _old/                    previous files (git-ignored, never reused)
 | Guide | `/guides/how-to-convert-cgpa-to-percentage/` | how to convert cgpa to percentage |
 | Age calculator | `/age-calculator-for-cut-off-date/` | age calculator for cut off date |
 | Guide | `/guides/how-to-calculate-age-on-a-cut-off-date/` | how to calculate age on a cut-off date |
+| Seating plan generator | `/seating-plan-generator/` | seating plan generator |
+| Guide | `/guides/how-to-make-an-exam-hall-seating-plan/` | how to make an exam hall seating plan |
+| Random student picker | `/random-student-picker/` | random student picker |
+| Guide | `/guides/how-to-pick-students-fairly-in-class/` | how to pick students fairly in class |
+| Marks to grade converter | `/marks-to-grade-converter/` | marks to grade converter |
+| Guide | `/guides/how-to-convert-marks-to-grades/` | how to convert marks to grades |
 | Compress PDF | `/compress-pdf-to-specific-size/` | compress pdf to specific size |
 | Guide | `/guides/how-to-make-a-pdf-smaller-for-upload/` | how to make a pdf smaller |
 
@@ -77,9 +83,9 @@ _old/                    previous files (git-ignored, never reused)
 - [x] Tool 5: Percentage calculator + guide
 - [x] Tool 6: CGPA to percentage converter + guide
 - [x] Tool 7: Age calculator for a cut-off date + guide
-- [ ] Tool 8: Seating plan generator + guide
-- [ ] Tool 9: Random student picker + guide
-- [ ] Tool 10: Marks to grade converter + guide
+- [x] Tool 8: Seating plan generator + guide
+- [x] Tool 9: Random student picker + guide
+- [x] Tool 10: Marks to grade converter + guide
 - [ ] Phase 4: Lighthouse audit (mobile): home, one tool, one guide, each ≥ 90
 - [ ] Phase 5: domain + CNAME, GitHub Actions workflow, link/title audit, history check, add remote (no push)
 
@@ -91,6 +97,7 @@ _old/                    previous files (git-ignored, never reused)
 - Photo and signature resizer + guide
 - Compress PDF + guide
 - Percentage calculator, CGPA to percentage, Age calculator (each + guide)
+- Seating plan generator, Random student picker, Marks to grade converter (each + guide)
 - PDF to image + guide
 - Image to PDF + guide
 
