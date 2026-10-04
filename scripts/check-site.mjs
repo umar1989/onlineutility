@@ -5,7 +5,7 @@ import { join, relative } from 'node:path';
 const DIST = 'dist';
 const walk = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]));
 const files = walk(DIST);
-const pages = files.filter((f) => f.endsWith('.html') && !/(^|/)google[0-9a-f]+\.html$/.test(f)); // skip Search Console verification file
+const pages = files.filter((f) => f.endsWith('.html') && !/(^|[\\/])google[0-9a-f]+\.html$/.test(f)); // skip Search Console verification file
 const urlOf = (f) => '/' + relative(DIST, f).replace(/index\.html$/, '').replace(/^404\.html$/, '404.html');
 const known = new Set(files.map((f) => '/' + relative(DIST, f)));
 const pageUrls = new Set(pages.map(urlOf));
