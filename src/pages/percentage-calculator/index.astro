@@ -1,0 +1,61 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+const faqs = [
+  { q: 'How do I calculate percentage of marks?', a: 'Choose "X is what % of Y", enter marks obtained as the part and total marks as the whole. The answer is marks obtained divided by total marks, times 100.' },
+  { q: 'What is the formula for percentage?', a: 'Percentage = (part ÷ whole) × 100. To find a percentage of a number, use (percentage ÷ 100) × number.' },
+  { q: 'How is percentage change different from percentage points?', a: 'Percentage change compares the new value with the old one. Going from 40% to 50% is a rise of 10 percentage points but a 25% increase.' },
+  { q: 'Can the answer be above 100%?', a: 'Yes. If the part is bigger than the whole, the percentage is over 100. A fall can never be more than 100%, though.' },
+  { q: 'Does this save my numbers?', a: 'No. Everything is worked out in your browser as you type, and nothing is stored or sent anywhere.' },
+];
+---
+<ToolLayout slug="percentage-calculator" faqs={faqs}>
+  {/* AUTHOR REVIEW: lead paragraph, drafted by AI. */}
+  <p slot="lead">
+    This percentage calculator works out marks percentage, a percent of a number, percentage change and increases or
+    decreases. Type two numbers, pick what you want to find, and see the answer with the working shown.
+  </p>
+
+  <div slot="tool">
+    <div class="field">
+      <label for="pct-mode">What do you want to find?</label>
+      <select id="pct-mode">
+        <option value="of">What is X% of a number?</option>
+        <option value="what">X is what % of Y? (marks percentage)</option>
+        <option value="change">Percentage change from old to new</option>
+        <option value="inc">Increase a number by X%</option>
+        <option value="dec">Decrease a number by X%</option>
+      </select>
+    </div>
+    <div class="row two">
+      <div class="field"><label for="pct-a" id="pct-la">Percentage (%)</label><input id="pct-a" type="number" step="any" inputmode="decimal" /></div>
+      <div class="field"><label for="pct-b" id="pct-lb">Number</label><input id="pct-b" type="number" step="any" inputmode="decimal" /></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <p class="label" style="margin:0">Answer</p>
+      <p class="big" id="pct-out">–</p>
+      <p id="pct-work" class="hint">Enter both numbers to see the answer and the working.</p>
+    </div>
+  </div>
+
+  {/* AUTHOR REVIEW: how-to and worked example drafted by AI. Add a classroom example of your own. */}
+  <h2>How to use the percentage calculator</h2>
+  <ol>
+    <li>Pick the question you want answered from the list.</li>
+    <li>Enter the two numbers. The labels change to match your choice.</li>
+    <li>Read the answer and the working line underneath it, which shows the formula with your numbers.</li>
+  </ol>
+  <h2>Worked example</h2>
+  <p class="worked">
+    A student scores 432 out of 600 marks. Choose "X is what % of Y", enter 432 as the part and 600 as the whole. The
+    working reads 432 ÷ 600 × 100 = 72%. To see the improvement from a previous 60% to 72%, choose "Percentage
+    change", enter 60 and 72, and you get a 20% increase, because the gain of 12 is one fifth of 60.
+  </p>
+  <h2>Where percentages trip people up</h2>
+  <p>
+    The most common slip is dividing by the wrong number. For marks, the whole is the total marks, not the passing
+    marks. For change, the base is always the old value. Rounding also matters: this tool keeps up to four decimal
+    places in the working and rounds the main answer for readability. If a form or board wants a specific rounding
+    rule, follow its instructions.
+  </p>
+  <script>import '../../scripts/percentage.js';</script>
+</ToolLayout>

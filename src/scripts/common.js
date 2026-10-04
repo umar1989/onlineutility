@@ -46,3 +46,10 @@ export const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&
 
 // One name per line (or comma separated), blanks removed
 export const parseList = (text) => text.split(/[\n,;]+/).map((s) => s.trim()).filter(Boolean);
+
+// Number to string with up to `d` decimals, trailing zeros removed, Indian digit grouping for large values
+export const fmtNum = (n, d = 4) => {
+  if (!Number.isFinite(n)) return '–';
+  const r = Math.round((n + Number.EPSILON) * 10 ** d) / 10 ** d;
+  return r.toLocaleString('en-IN', { maximumFractionDigits: d });
+};
