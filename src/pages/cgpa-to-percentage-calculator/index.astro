@@ -1,0 +1,68 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+const faqs = [
+  { q: 'How do I convert CGPA to percentage?', a: 'Multiply your CGPA by the multiplier your board or university uses. For example, 8.2 × 9.5 = 77.9%. If your institution uses a different factor, type it in.' },
+  { q: 'Which multiplier should I use?', a: 'Use the one printed by your own board, university or the exam notification. Some use 9.5, others use 10 or a custom table, so this tool never assumes one is official.' },
+  { q: 'Can I convert percentage back to CGPA?', a: 'Yes. Switch the direction to "Percentage to CGPA". The tool divides by the multiplier, or scales against the maximum CGPA you choose.' },
+  { q: 'What is the proportional method?', a: 'It is CGPA ÷ maximum CGPA × 100. It suits scales such as 4 or 5 points, and is used where a plain proportion is accepted.' },
+  { q: 'Is a converted percentage an official result?', a: 'No. It is only an estimate. For forms and admissions, use the conversion or certificate your institution issues.' },
+];
+---
+<ToolLayout slug="cgpa-to-percentage-calculator" faqs={faqs}>
+  {/* AUTHOR REVIEW: lead paragraph, drafted by AI. */}
+  <p slot="lead">
+    This CGPA to percentage calculator lets you choose the multiplier, so you can follow the rule your own board or
+    university uses. It also converts percentage back to CGPA and shows the formula with your numbers.
+  </p>
+
+  <div slot="tool">
+    <div class="row two">
+      <div class="field">
+        <label for="cg-dir">Direction</label>
+        <select id="cg-dir"><option value="toPct">CGPA to percentage</option><option value="toCgpa">Percentage to CGPA</option></select>
+      </div>
+      <div class="field">
+        <label for="cg-method">Method</label>
+        <select id="cg-method"><option value="mult">Multiply by a factor</option><option value="prop">Proportional to the scale maximum</option></select>
+      </div>
+    </div>
+    <div class="row two">
+      <div class="field"><label for="cg-val" id="cg-vlabel">Your CGPA</label><input id="cg-val" type="number" step="any" min="0" inputmode="decimal" placeholder="e.g. 8.2" /></div>
+      <div class="field">
+        <label for="cg-k" id="cg-klabel">Multiplier (factor)</label>
+        <input id="cg-k" type="number" step="any" min="0" inputmode="decimal" value="9.5" />
+        <div class="chips" id="cg-chips">
+          <button type="button" class="chip" data-k="9.5" aria-pressed="true">9.5</button>
+          <button type="button" class="chip" data-k="10" aria-pressed="false">10</button>
+        </div>
+      </div>
+    </div>
+    <div class="result" aria-live="polite">
+      <p class="label" style="margin:0">Answer</p>
+      <p class="big" id="cg-out">–</p>
+      <p id="cg-work" class="hint">Enter your value to see the answer and the working.</p>
+    </div>
+    <p class="hint">The preset multipliers are common examples, not an official rule for any institution. Confirm yours before using the result.</p>
+  </div>
+
+  {/* AUTHOR REVIEW: how-to and worked example drafted by AI. Add the conversion rules you actually see at your school or college. */}
+  <h2>How to convert CGPA to percentage</h2>
+  <ol>
+    <li>Keep "CGPA to percentage" and "Multiply by a factor" selected, unless your institution uses a proportional rule.</li>
+    <li>Enter your CGPA. Then set the multiplier from your university's rule or the form instructions.</li>
+    <li>Read the percentage and the working line, and copy the figure into your form if the rule allows it.</li>
+  </ol>
+  <h2>Worked example</h2>
+  <p class="worked">
+    A student has a CGPA of 8.2 and the college states a multiplier of 9.5. The working is 8.2 × 9.5 = 77.9, so the
+    percentage is 77.9%. With the proportional method on a 10-point scale it would be 8.2 ÷ 10 × 100 = 82%. Same CGPA,
+    different answers, which is why you must use the method your institution names.
+  </p>
+  <h2>Why different institutions give different answers</h2>
+  <p>
+    CGPA is built from grade points averaged over credits, and each university decides how to translate that average
+    into a percentage. Some publish a single factor, some give a table, and some do not convert at all. This tool
+    is a calculator, not an authority. If a form needs an official equivalent, ask your institution for a certificate.
+  </p>
+  <script>import '../../scripts/cgpa.js';</script>
+</ToolLayout>

@@ -18,4 +18,12 @@ eq('200 -15%', await p.textContent('#pct-out'), '170');
 await p.selectOption('#pct-mode', 'what'); await p.fill('#pct-a', '5'); await p.fill('#pct-b', '0');
 eq('div by zero', (await p.textContent('#pct-work')).includes('zero'), true);
 
+await p.goto('http://localhost:4399/cgpa-to-percentage-calculator/');
+await p.fill('#cg-val', '8.2');
+eq('cgpa 8.2 x 9.5', await p.textContent('#cg-out'), '77.9%');
+await p.selectOption('#cg-method', 'prop');
+eq('prop 8.2/10', await p.textContent('#cg-out'), '82%');
+await p.selectOption('#cg-dir', 'toCgpa'); await p.selectOption('#cg-method', 'mult'); await p.fill('#cg-val', '77.9');
+eq('77.9 -> cgpa', await p.textContent('#cg-out'), '8.2 CGPA');
+
 console.log('errors', errors); await b.close(); s.close();
