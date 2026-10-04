@@ -87,9 +87,8 @@ _old/                    previous files (git-ignored, never reused)
 - [x] Tool 9: Random student picker + guide
 - [x] Tool 10: Marks to grade converter + guide
 - [x] Phase 4: Lighthouse audit (mobile): home, one tool, one guide, each ≥ 90
-- [ ] Phase 5 (partly done):
-  - [ ] **Domain: PENDING.** Site address is still `https://example.com` in `src/config.ts`. Run `npm run set-domain -- yourdomain.in`
-        (updates config, writes `public/CNAME`), then `npm run build && npm run check`, commit, push.
+- [x] Phase 5:
+  - [x] Domain set: `onlineutilitytools.in` (config + `public/CNAME`, via `npm run set-domain`)
   - [x] GitHub Actions workflow `.github/workflows/deploy.yml` (build, audit, deploy to GitHub Pages)
   - [x] Build + audit: 27 pages, 732 internal links, titles/descriptions/headings/word counts: no problems
   - [x] History check: `_old/`, `node_modules/`, `dist/` ignored; no secrets or private files committed

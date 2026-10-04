@@ -1,7 +1,6 @@
 // Single place for site-wide settings. Edit here, nothing else needs to change.
 export const SITE = {
-  // PLACEHOLDER: replace with your real domain (no trailing slash) before going live.
-  url: 'https://example.com',
+  url: 'https://onlineutilitytools.in',
   name: 'Online Utility',
   tagline: 'Free exam-form and classroom tools that run in your browser',
   description:
